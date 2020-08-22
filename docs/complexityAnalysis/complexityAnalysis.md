@@ -128,7 +128,8 @@ int sum(int n) {
 
 如果 $T1(n)=O(f(n))$，$T2(n)=O(g(n))$；那么 $T(n)=T1(n)+T2(n)=max(O(f(n))$, $O(g(n))) =O(max(f(n), g(n)))$。
 
-?> **注意** 其实我们也可以根据**关注循环执行次数最多的一段代码**这条法则进行分析，分析发现循环次数最多的代码是第19、第20行代码，去除系数得到时间复杂度为$O(n^2)$
+> [!TIP]
+> 其实我们也可以根据**关注循环执行次数最多的一段代码**这条法则进行分析，分析发现循环次数最多的代码是第19、第20行代码，去除系数得到时间复杂度为$O(n^2)$
 
 ### 乘法法则：嵌套代码复杂度等于嵌套内外代码复杂度乘积
 这里还是直接上代码进行分析
@@ -157,7 +158,7 @@ $$T(n) = T_1(n) * T_2(n) = O(n*n) = O(n^2)$$
 我们将这个规律抽象成公式就是
 
 如果 $T_1(n)=O(f(n))$，$T_2(n)=O(g(n))$；那么 $T(n)=T_1(n)*T_2(n)=O(f(n))*O(g(n))=O(f(n)*g(n))$。
-## 几种常见时间复杂度实例分析
+## 几种常见时间复杂度实例分析 
 
 虽然代码千差万别，但是常见的复杂度量级并不多。我稍微总结了一下，这些复杂度量级几乎涵盖了你今后可以接触的所有代码的复杂度量级。
 
@@ -168,7 +169,7 @@ $$T(n) = T_1(n) * T_2(n) = O(n*n) = O(n^2)$$
 
 接下来我们看几种常见的多项式时间复杂度：
 
-### $O(1)$
+### $O(1)$ {docsify-ignore}
 只要代码的执行时间不随 n 的增大而增长，这样代码的时间复杂度我们都记作 $O(1)$。
 
 接下来举个例子。我们依旧假设每个语句的执行时间是 unitTime
@@ -181,7 +182,7 @@ $$T(n) = T_1(n) * T_2(n) = O(n*n) = O(n^2)$$
 ```
 假设该段代码不论在什么情况下，执行时间都是$3*unitTime$，所以记作$O(1)$。
 
-### O(logn)
+### O(logn) {docsify-ignore}
 对数阶时间复杂度非常常见，同时也是最难分析的一种时间复杂度。我通过一个例子来说明一下。
 
 ```java
@@ -211,10 +212,10 @@ $$T(n) = T_1(n) * T_2(n) = O(n*n) = O(n^2)$$
 根据我刚刚讲的思路，很简单就能看出来，这段代码的时间复杂度为 $O(log_3n)$。
 
 实际上，不管是以 2 为底、以 3 为底，还是以 10 为底，我们可以把所有对数阶的时间复杂度都记为 $O(logn)$。为什么呢？我们知道，对数之间是可以互相转换的，$log_3n$ 就等于 $log_32 * log_2n$，所以 $O(log_3n) = O(C * log_2n)$，其中 $C=log_32 $是一个常量。通过前面的学习，我们知道可以忽略系数，因此，在对数阶时间复杂度的表示方法里，我们忽略对数的“底”，统一表示为 $O(logn)$。
+> [!TIP]
+> 如果你理解了 O(logn)，那 O(nlogn) 就很容易理解了。还记得刚讲的乘法法则吗？如果一段代码的时间复杂度是 O(logn)，我们循环执行 n 遍，时间复杂度就是 O(nlogn) 了。
 
-?> 如果你理解了 O(logn)，那 O(nlogn) 就很容易理解了。还记得刚讲的乘法法则吗？如果一段代码的时间复杂度是 O(logn)，我们循环执行 n 遍，时间复杂度就是 O(nlogn) 了。
-
-### O(n)
+### O(n) {docsify-ignore}
 一般含有非嵌套循环。线性阶就是随着问题规模n的扩大，对应计算次数呈直线增长。
 ```java
 int i , n = 100, sum = 0;
@@ -225,7 +226,7 @@ for( i=0; i < n; i++ )
 ```
 
 
-### $O(n^2)$
+### $O(n^2)$ {docsify-ignore}
 基本上含有两层for循环。随着问题规模n的扩大，对应计算次数呈平方数增长。
 ```java
 for (int i = 0; i < n; i++) { 
@@ -234,9 +235,10 @@ for (int i = 0; i < n; i++) {
   }
 }
 ```
-?> **同理**，$O(n^3)$基本上就是含有三层for循环，不再赘述。
+> [!TIP]
+> **同理**，$O(n^3)$基本上就是含有三层for循环，不再赘述。
 
-### $O(m+n)$、$O(m*n)$
+### $O(m+n)$、$O(m*n)$ {docsify-ignore}
 这种情况通常是由两个数据的规模来决定，不再是单纯的一个n。
 ```java
 int cal(int m, int n) {
@@ -258,17 +260,20 @@ int cal(int m, int n) {
 
 从代码中可以看出，m 和 n 是表示两个数据规模。我们无法评估 m 和 n 谁的量级大，所以我们在表示复杂度的时候，就不能简单地利用加法法则，省略掉其中一个。所以，上面代码的时间复杂度就是 $O(m+n)$。
 
-?> $O(m*n)$同理。
+> [!TIP]
+> $O(m*n)$同理。
 
-### 总结
+### 总结 {docsify-ignore}
 为了更好的对比速度，我从网上找到了这种图片，时间复杂度的好坏一目了然。
 
 ![复杂度量级速度对比](1-3.3.png)
 
-!> 该图片来源于：[https://learntocodetogether.com/big-o-cheat-sheet-for-common-data-structures-and-algorithms/](https://learntocodetogether.com/big-o-cheat-sheet-for-common-data-structures-and-algorithms/)
+> [!NOTE]
+> 该图片来源于：[https://learntocodetogether.com/big-o-cheat-sheet-for-common-data-structures-and-algorithms/](https://learntocodetogether.com/big-o-cheat-sheet-for-common-data-structures-and-algorithms/)
 ## 空间复杂度分析
 
 接下来我们讲空间复杂度分析。如果能够理解时间复杂度分析，那空间复杂度分析对你就小菜一碟了。
 ## Reference
 
-!> **[数据结构与算法之美-王峥](https://time.geekbang.org/column/intro/126?utm_campaign=guanwang&utm_source=baidu-ad&utm_medium=ppzq-pc&utm_content=title&utm_term=baidu-ad-ppzq-title)**
+> [!NOTE]
+> **[数据结构与算法之美-王峥](https://time.geekbang.org/column/intro/126?utm_campaign=guanwang&utm_source=baidu-ad&utm_medium=ppzq-pc&utm_content=title&utm_term=baidu-ad-ppzq-title)**
