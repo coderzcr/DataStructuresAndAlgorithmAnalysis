@@ -1,6 +1,6 @@
 * 前言
 * [复杂度分析](complexityAnalysis/complexityAnalysis.md)
-* 数组
+* [数组](array/array.md)
 * 链表
 * 栈
 * 队列
